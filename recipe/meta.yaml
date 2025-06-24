@@ -1,18 +1,17 @@
 {% set name = "durationpy" %}
-{% set version = "0.9" %}
+{% set version = "0.10" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/durationpy-{{ version }}.tar.gz
-  sha256: fd3feb0a69a0057d582ef643c355c40d2fa1c942191f914d12203b1a01ac722a
+  url: https://github.com/icholy/{{ name }}/archive/refs/tags/{{ version }}.tar.gz
+  sha256: ce67a884a8304f2227c6b27e8bab0831167bc346831ff6d069028969eb05d05b
 
 build:
-  script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation --ignore-installed --no-cache-dir -vv
   number: 0
-  skip: true  # [py<38]
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
 
 requirements:
   host:
@@ -24,12 +23,17 @@ requirements:
     - python
 
 test:
+  source_files:
+    - test.py
   imports:
     - durationpy
   commands:
     - pip check
+    - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
+    - pytest -v test.py
   requires:
     - pip
+    - pytest
 
 about:
   home: https://github.com/icholy/durationpy
