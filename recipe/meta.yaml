@@ -1,5 +1,5 @@
 {% set name = "durationpy" %}
-{% set version = "0.10" %}
+{% set version = "0.11" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://github.com/icholy/{{ name }}/archive/refs/tags/{{ version }}.tar.gz
-  sha256: ce67a884a8304f2227c6b27e8bab0831167bc346831ff6d069028969eb05d05b
+  sha256: e8710e9c5923953fa10dd7b1df507d476f3b727a8870d55f7f1e14af6c65ef90
 
 build:
   number: 0
